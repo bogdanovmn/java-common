@@ -1,4 +1,4 @@
-package com.github.bogdanovmn.common.spring;
+package com.github.bogdanovmn.common.spring.convert;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

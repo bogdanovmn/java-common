@@ -1,4 +1,4 @@
-package com.github.bogdanovmn.common.spring;
+package com.github.bogdanovmn.common.spring.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

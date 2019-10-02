@@ -16,10 +16,10 @@
 	</modules>
 
 	<properties>
-		<version.main>1.4.0</version.main>
+		<version.main>1.4.1</version.main>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
-		<spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 

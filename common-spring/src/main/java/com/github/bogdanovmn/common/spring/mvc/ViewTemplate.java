@@ -18,6 +18,11 @@ public class ViewTemplate {
 		return this;
 	}
 
+	public ViewTemplate withFlag(String paramName) {
+		params.put(paramName, true);
+		return this;
+	}
+
 	public ModelAndView modelAndView() {
 		return new ModelAndView(
 			templateName, params

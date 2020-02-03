@@ -6,11 +6,11 @@ import java.util.List;
 
 public class ContentPage<ContentType> {
 	private final Page<ContentType> currentPage;
-	private final String url;
+	private final PageMeta meta;
 
-	public ContentPage(Page<ContentType> currentPage, String url) {
+	public ContentPage(Page<ContentType> currentPage, PageMeta meta) {
 		this.currentPage = currentPage;
-		this.url = url;
+		this.meta = meta;
 	}
 
 	public List<ContentType> content() {
@@ -18,10 +18,29 @@ public class ContentPage<ContentType> {
 	}
 
 	public PaginationBar paginationBar() {
+		StringBuilder queryStringBuilder = new StringBuilder();
+		if (meta.hasParameters()) {
+			 meta.getParameters().forEach((k, v) -> {
+			 	if (v != null) {
+					queryStringBuilder.append("&");
+					queryStringBuilder.append(k);
+					queryStringBuilder.append("=");
+					queryStringBuilder.append(v.toString());
+				}
+			 });
+		}
+		if (meta.getSortBy() != null) {
+			queryStringBuilder.append("&sortBy=").append(meta.getSortBy());
+		}
+		String queryString = queryStringBuilder.toString();
+		if (!queryString.isEmpty()) {
+			queryString = queryString.replaceFirst("^&", "?");
+		}
+
 		return PaginationBar.builder()
-			.currentPage(currentPage.getNumber())
+			.currentPage(meta.getNumber())
 			.totalPages(currentPage.getTotalPages())
-			.url(url)
+			.baseUrl(meta.getBaseUrl() + queryString)
 		.build();
 	}
 }

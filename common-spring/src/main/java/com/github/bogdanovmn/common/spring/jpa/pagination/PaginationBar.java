@@ -8,7 +8,7 @@ import lombok.Value;
 public class PaginationBar {
 	private final int currentPage;
 	private final int totalPages;
-	private final String url;
+	private final String baseUrl;
 
 	public boolean isMoreThanOnePage() {
 		return totalPages > 1;

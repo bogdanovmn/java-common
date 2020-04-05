@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.github.bogdanovmn.common</groupId>
         <artifactId>common</artifactId>
-        <version>dev</version>
+        <version>${version.main}</version>
     </parent>
 
     <artifactId>common-core</artifactId>
@@ -18,4 +18,21 @@
         <maven.deploy.skip>false</maven.deploy.skip>
     </properties>
 
+    <name>java-common-core</name>
+    <description>Java common library (core)</description>
+    <url>http://github.com/bogdanovmn/${git.id}</url>
+    <developers>
+        <developer>
+            <name>Mikhail N Bogdanov</name>
+            <email>bogdanovmn@gmail.com</email>
+            <organization>Open source</organization>
+            <organizationUrl>http://github.com/bogdanovmn/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/bogdanovmn/${git.id}.git</connection>
+        <developerConnection>scm:git:ssh://github.com:${git.id}.git</developerConnection>
+        <url>http://github.com/${git.id}</url>
+    </scm>
 </project>

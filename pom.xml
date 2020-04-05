@@ -6,8 +6,12 @@
 
 	<groupId>com.github.bogdanovmn.common</groupId>
 	<artifactId>common</artifactId>
-	<version>dev</version>
+	<version>${version.main}</version>
 	<packaging>pom</packaging>
+
+	<name>java-common</name>
+	<description>Java common library</description>
+	<url>http://github.com/bogdanovmn/${git.id}</url>
 
 	<modules>
 		<module>common-core</module>
@@ -16,19 +20,43 @@
 	</modules>
 
 	<properties>
-		<version.main>1.4.4</version.main>
+		<version.main>1.4.9</version.main>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
 		<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-		<maven.deploy.skip>true</maven.deploy.skip>
+		<maven.deploy.skip>false</maven.deploy.skip>
+		<git.id>bogdanovmn/java-common</git.id>
 	</properties>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Mikhail N Bogdanov</name>
+			<email>bogdanovmn@gmail.com</email>
+			<organization>Open source</organization>
+			<organizationUrl>http://github.com/bogdanovmn/</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/bogdanovmn/${git.id}.git</connection>
+		<developerConnection>scm:git:ssh://github.com:${git.id}.git</developerConnection>
+		<url>http://github.com/${git.id}</url>
+	</scm>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.4</version>
+				<version>1.18.12</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -48,10 +76,19 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>**/*pom.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.8.1</version>
 				<configuration>
 					<encoding>${encoding}</encoding>
 					<source>${java.version}</source>
@@ -60,36 +97,89 @@
 					<testTarget>${java.version}</testTarget>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<version>1.0.1</version>
-				<configuration>
-				</configuration>
-				<executions>
-					<execution>
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>flatten.clean</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<configuration>
+							<encoding>${encoding}</encoding>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
+							<testSource>${java.version}</testSource>
+							<testTarget>${java.version}</testTarget>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.2.0</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 		<repository>
-			<id>github</id>
-			<url>https://maven.pkg.github.com/bogdanovmn/java-common</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 

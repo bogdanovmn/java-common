@@ -19,6 +19,12 @@ public class ObjCounter<KeyType> {
 		increment(obj, 1);
 	}
 
+	public void merge(ObjCounter<KeyType> another) {
+		another.keys().forEach(
+			key -> increment(key, another.get(key))
+		);
+	}
+
 	public Set<KeyType> keys() {
 		return Collections.unmodifiableSet(
 			counter.keySet()

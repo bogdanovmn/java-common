@@ -6,13 +6,17 @@ import java.util.Map;
 import java.util.Set;
 
 public class ObjCounter<KeyType> {
-	private final Map<KeyType, Integer> counter = new HashMap<>();
+	private final Map<KeyType, Long> counter = new HashMap<>();
 
-	public void increment(KeyType obj) {
+	public void increment(KeyType obj, long value) {
 		counter.put(
 			obj,
-			counter.getOrDefault(obj, 0) + 1
+			counter.getOrDefault(obj, 0L) + value
 		);
+	}
+
+	public void increment(KeyType obj) {
+		increment(obj, 1);
 	}
 
 	public Set<KeyType> keys() {
@@ -21,8 +25,8 @@ public class ObjCounter<KeyType> {
 		);
 	}
 
-	public int get(KeyType obj) {
-		return counter.getOrDefault(obj, 0);
+	public long get(KeyType obj) {
+		return counter.getOrDefault(obj, 0L);
 	}
 
 	public void remove(KeyType obj) {

@@ -6,12 +6,12 @@
 
 	<groupId>com.github.bogdanovmn.common</groupId>
 	<artifactId>common</artifactId>
-	<version>${version.main}</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 
 	<name>java-common</name>
 	<description>Java common library</description>
-	<url>http://github.com/bogdanovmn/${git.id}</url>
+	<url>http://github.com/bogdanovmn/java-common</url>
 
 	<modules>
 		<module>common-core</module>
@@ -20,12 +20,11 @@
 	</modules>
 
 	<properties>
-		<version.main>1.4.9</version.main>
+		<version.main>1.5.0</version.main>
+		<revision>1.5.1</revision>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
 		<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-		<maven.deploy.skip>false</maven.deploy.skip>
-		<git.id>bogdanovmn/java-common</git.id>
 	</properties>
 
 	<licenses>
@@ -46,18 +45,13 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/bogdanovmn/${git.id}.git</connection>
-		<developerConnection>scm:git:ssh://github.com:${git.id}.git</developerConnection>
-		<url>http://github.com/${git.id}</url>
+		<connection>scm:git:git://github.com/bogdanovmn/java-common.git</connection>
+		<developerConnection>scm:git:ssh://github.com/bogdanovmn/java-common.git</developerConnection>
+		<url>http://github.com/bogdanovmn/java-common</url>
 	</scm>
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>1.18.12</version>
-			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -68,6 +62,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
@@ -76,15 +76,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>.</directory>
-				<includes>
-					<include>**/*pom.xml</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -97,6 +88,31 @@
 					<testTarget>${java.version}</testTarget>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.2.5</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -105,17 +121,6 @@
 			<id>release</id>
 			<build>
 				<plugins>
-					<plugin>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.8.1</version>
-						<configuration>
-							<encoding>${encoding}</encoding>
-							<source>${java.version}</source>
-							<target>${java.version}</target>
-							<testSource>${java.version}</testSource>
-							<testTarget>${java.version}</testTarget>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>

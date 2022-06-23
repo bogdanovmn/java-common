@@ -12,13 +12,13 @@ import java.util.function.Consumer;
 
 @Slf4j
 @RequiredArgsConstructor
-class ConcurrentConsuming {
+public class ConcurrentConsuming {
     private final int poolSize;
 
     private AtomicInteger processed;
     private volatile boolean hasError;
 
-    <T> void consume(List<T> itemsToProcess, Consumer<T> processing) throws Exception {
+    public <T> void consume(List<T> itemsToProcess, Consumer<T> processing) throws Exception {
         ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
         int totalItems = itemsToProcess.size();
         processed = new AtomicInteger(0);

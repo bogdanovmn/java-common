@@ -1,4 +1,4 @@
-package com.github.bogdanovmn.common.core;
+package com.github.bogdanovmn.common.text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.github.bogdanovmn.common.core;
+package com.github.bogdanovmn.common.text;
 
 public class BigString {
 	private final StringBuilder stringBuilder;

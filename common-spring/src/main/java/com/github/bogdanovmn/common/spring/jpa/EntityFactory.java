@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class EntityFactory {
 	private final Map<Class<?>, Map<String, BaseEntityWithUniqueName>> singleEntityCache = new ConcurrentHashMap<>();
-	private final Map<Class<?>, Iterable> setEntityCache = new ConcurrentHashMap<>();
+	private final Map<Class<?>, Iterable<?>> setEntityCache = new ConcurrentHashMap<>();
 
 	@Autowired
 	private EntityRepositoryMapFactory entityRepositoryMapFactory;
@@ -53,7 +53,7 @@ public class EntityFactory {
 		return result;
 	}
 
-	public Iterable getAll(Class<? extends BaseEntityWithUniqueName> entClass) {
+	public Iterable<?> getAll(Class<? extends BaseEntityWithUniqueName> entClass) {
 		return this.setEntityCache.computeIfAbsent(
 			entClass,
 			x -> entityRepositoryMapFactory.getRepository(entClass).findAll()

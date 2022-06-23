@@ -17,19 +17,19 @@ public abstract class BaseEntity {
 		strategy = "native"
 	)
 	@Access(AccessType.PROPERTY)
-	protected Integer id;
+	protected Long id;
 
-	public BaseEntity(Integer id) {
+	public BaseEntity(Long id) {
 		this.id = id;
 	}
 
 	public BaseEntity() {}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public BaseEntity setId(Integer id) {
+	public BaseEntity setId(Long id) {
 		this.id = id;
 		return this;
 	}

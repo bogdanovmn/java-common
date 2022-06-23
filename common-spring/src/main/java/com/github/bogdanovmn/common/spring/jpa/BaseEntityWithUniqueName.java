@@ -17,7 +17,7 @@ public abstract class BaseEntityWithUniqueName extends BaseEntity {
 		this.name = name;
 	}
 
-	public BaseEntityWithUniqueName(Integer id) {
+	public BaseEntityWithUniqueName(Long id) {
 		super(id);
 	}
 

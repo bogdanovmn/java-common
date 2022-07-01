@@ -1,6 +1,5 @@
 package com.github.bogdanovmn.common.text;
 
-import com.github.bogdanovmn.common.text.CompressedText;
 import org.junit.Test;
 
 import java.io.IOException;

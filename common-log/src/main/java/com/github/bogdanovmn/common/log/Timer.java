@@ -1,21 +1,18 @@
 package com.github.bogdanovmn.common.log;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
-import java.util.function.Supplier;
-
-@Slf4j
+@RequiredArgsConstructor
 public class Timer {
+    private final long startedAt;
 
-	public static <T> T measure(String description, Supplier<T> supplier) {
-		long start = System.currentTimeMillis();
-		T result = supplier.get();
-		LOG.info(
-			String.format(
-				"%s took %.3f sec",
-					description, (System.currentTimeMillis() - start) / 1000.0
-			)
-		);
-		return result;
-	}
+    public static Timer start() {
+        return new Timer(
+            System.currentTimeMillis()
+        );
+    }
+
+    public long durationInMills() {
+        return System.currentTimeMillis() - startedAt;
+    }
 }

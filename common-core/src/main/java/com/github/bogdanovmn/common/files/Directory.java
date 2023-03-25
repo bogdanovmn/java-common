@@ -15,14 +15,14 @@ public class Directory {
         this.dir = Paths.get(dir);
     }
 
-    private Set<Path> filesRecursively(Predicate<String> nameRule) throws IOException {
+    public Set<Path> filesRecursively(Predicate<String> nameRule) throws IOException {
         return Files.walk(dir)
             .filter(Files::isRegularFile)
             .filter(f -> nameRule.test(f.getFileName().toString()))
             .collect(Collectors.toSet());
     }
 
-    private Set<Path> files(Predicate<String> nameRule) throws IOException {
+    public Set<Path> files(Predicate<String> nameRule) throws IOException {
         return Files.list(dir)
             .filter(Files::isRegularFile)
             .filter(f -> nameRule.test(f.getFileName().toString()))

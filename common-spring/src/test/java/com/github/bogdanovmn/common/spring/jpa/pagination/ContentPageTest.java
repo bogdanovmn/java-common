@@ -3,8 +3,7 @@ package com.github.bogdanovmn.common.spring.jpa.pagination;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class ContentPageTest {
 
@@ -23,9 +22,9 @@ public class ContentPageTest {
 
 		PaginationBar paginationBar = contentPage.paginationBar();
 
-		assertThat(
-			paginationBar.getBaseUrl(),
-			is("/base-url?param1=123&param2=true&sortBy=name")
-		);
+		assertEquals(
+            "/base-url?param1=123&param2=true&sortBy=name",
+            paginationBar.getBaseUrl()
+        );
 	}
 }
